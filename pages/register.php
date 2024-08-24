@@ -42,7 +42,7 @@
                 <!-- Age -->
                 <div>
                     <label for="age" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Age</label>
-                    <input type="url" id="website" name="age"
+                    <input type="number" id="website" name="age" min="1" max="100"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Enter your age" required />
                 </div>
@@ -53,7 +53,8 @@
                         number</label>
                     <input type="tel" id="phone" name="contact"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="1234567890" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+                        title="Phone number must be a 10-digit number starting with 7, 8, or 9, with optional country code (+91) or 91."
+                        placeholder="+XX-XXXXXXXXXX" pattern="^(\+91[\-\s]?)?[789]\d{9}$" required  />
                 </div>
 
 
@@ -91,7 +92,7 @@
             <div class="mb-6">
                 <label for="password"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                <input type="password" id="password"
+                <input type="password" id="password" name="password"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="•••••••••" required />
             </div>
@@ -99,7 +100,7 @@
             <div class="mb-6">
                 <label for="confirm_password"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
-                <input type="password" id="confirm_password"
+                <input type="password" id="confirm_password" name="confirm_password"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="•••••••••" required />
             </div>
@@ -121,7 +122,7 @@
                     <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">terms and
                         conditions</a>.</label>
             </div>
-            <button type="submit"
+            <button type="submit" name="submit" value="submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Sign up
             </button>
@@ -134,10 +135,10 @@
 
     document.getElementById('show-password').addEventListener('change', function () {
         const passwordField = document.getElementById('password');
-        const confirmPasswordField = document.getElementById('confirm_password');
+        //const confirmPasswordField = document.getElementById('confirm_password');
         const type = this.checked ? 'text' : 'password';
         passwordField.type = type;
-        confirmPasswordField.type = type;
+        //confirmPasswordField.type = type;
     });
 </script>
 
