@@ -1,12 +1,12 @@
 CREATE TABLE cms.Patients (
-    pUserName VARCHAR(50) NOT NULL PRIMARY KEY,
     pId INT AUTO_INCREMENT NOT NULL UNIQUE,
-    firstName VARCHAR(50),
-    lastName VARCHAR(50),
-    gender VARCHAR(50),
-    age INT,
-    email VARCHAR(50),
-    contact INT,
-    password VARCHAR(160),
-    createdAt TIMESTAMP
+    pUserName VARCHAR(50) NOT NULL PRIMARY KEY,
+    firstName VARCHAR(50) NOT NULL,
+    lastName VARCHAR(50) NOT NULL,
+    gender VARCHAR(50) NOT NULL,
+    age INT NOT NULL ,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    contact INT NOT NULL,
+    password VARCHAR(160) NOT NULL,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
