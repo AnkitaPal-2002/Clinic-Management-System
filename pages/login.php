@@ -12,9 +12,11 @@
 
 <?php
     include('../hooks/useParams.php');
+   
     if(isset($_GET['error'])){
         
         include('../components/dangeralert.php');
+        
 
         if($_GET['error'] == 'usernotfound'){
           danger('User not found. Please try again.');
@@ -25,7 +27,13 @@
         }else if($_GET['error'] == 'rolemissing'){
             danger('Role is Missing');
         }
-    }
+    }else if(isset($_GET['success'])){
+        include('../components/successAlert.php');
+
+        if($_GET['success'] == 'true'){
+            success('Logout successful...Login again to visit the site.');
+        }  
+    }  
 ?>
 
 <body>

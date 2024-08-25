@@ -1,9 +1,11 @@
 <?php
 include("../hooks/usePatientUserName.php");
+include("../hooks/useParams.php");
 session_start();
 
 
 $user = getPdetailsfromPUserName($_SESSION["pUserName"]);
+$logoutURL = getBaseURL()."/pages/logout.php";
 
 ?>
 
@@ -19,7 +21,13 @@ $user = getPdetailsfromPUserName($_SESSION["pUserName"]);
     <header class="bg-gradient-to-r from-purple-600 to-blue-500 text-white p-4">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-xl font-bold">🏥 Global Hospital</h1>
-            <button id="logoutBtn" class="text-sm bg-white text-purple-600 px-3 py-1 rounded">Logout</button>
+            <button id="logoutBtn" class="text-sm bg-white text-purple-600 px-3 py-1 rounded">
+            
+            <a href="<?php echo $logoutURL?>">
+            Logout
+            </a>
+            
+            </button>
         </div>
     </header>
 
