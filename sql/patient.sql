@@ -6,7 +6,10 @@ CREATE TABLE cms.Patients (
     gender VARCHAR(50) NOT NULL,
     age INT NOT NULL ,
     email VARCHAR(50) NOT NULL UNIQUE,
-    contact INT NOT NULL,
+    contact BIGINT(50) NOT NULL,
     password VARCHAR(160) NOT NULL,
     createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Modify the contact table
+ALTER TABLE `patients` CHANGE `contact` `contact` BIGINT(50) NOT NULL;

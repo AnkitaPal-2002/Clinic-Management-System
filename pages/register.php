@@ -8,6 +8,30 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Sign Up</title>
 </head>
+<?php
+     if(isset($_GET['error'])){
+        include('../components/dangeralert.php');
+        if($_GET['error'] == 'usernamefail'){
+          ?>
+            
+          <?php
+          danger('username not available');
+        }else if($_GET['error'] == 'emailfail'){
+            ?>
+            
+            <?php
+            danger('email not available');
+        }else if($_GET['error'] == 'wrong'){
+            ?>
+            
+            <?php
+            danger('something went wrong');
+        }
+     }
+
+
+
+?>
 
 <body>
     <section class="max-w-4xl mx-4 md:mx-auto my-5">
@@ -18,7 +42,7 @@
         <div class="py-2 text-sm text-blue-600">
             Sign up here
         </div>
-        <form>
+        <form action="http://localhost/clinicManagementSystem/helpers/registerProcess.php" method="post">
             <div class="grid gap-6 mb-6 md:grid-cols-2">
 
                 <!-- First Name -->
@@ -74,7 +98,7 @@
                     <input type="tel" id="phone" name="contact"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         title="Phone number must be a 10-digit number starting with 7, 8, or 9, with optional country code (+91) or 91."
-                        placeholder="XXXXXXXXXX" pattern="^(\+91[\-\s]?)?[789]\d{9}$" required />
+                        placeholder="XXXXXXXXXX" pattern="[0-9]{10}" required />
                 </div>
 
 
@@ -114,17 +138,11 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                 <input type="password" id="password"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="•••••••••" required />
+                    placeholder="•••••••••" name="password" required />
                 <i class="fas fa-eye absolute right-3 top-10 cursor-pointer" id="togglePassword"></i>
             </div>
 
-            <div class="mb-6 relative">
-                <label for="confirm_password"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
-                <input type="password" id="confirm_password"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="•••••••••" required />
-            </div>
+           
 
 
 
