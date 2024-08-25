@@ -17,7 +17,7 @@
         include('../components/dangeralert.php');
 
         if($_GET['error'] == 'usernotfound'){
-          danger('Username not found. Please try again.');
+          danger('User not found. Please try again.');
 
         }else if($_GET['error'] == 'invalidpassword'){
             danger('Invalid password');
