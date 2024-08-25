@@ -21,13 +21,7 @@ $logoutURL = getBaseURL()."/pages/logout.php";
     <header class="bg-gradient-to-r from-purple-600 to-blue-500 text-white p-4">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-xl font-bold">🏥 Global Hospital</h1>
-            <button id="logoutBtn" class="text-sm bg-white text-purple-600 px-3 py-1 rounded">
-            
-            <a href="<?php echo $logoutURL?>">
-            Logout
-            </a>
-            
-            </button>
+            <button id="logoutBtn" class="text-sm bg-white text-purple-600 px-3 py-1 rounded">Logout</button>
         </div>
     </header>
 
