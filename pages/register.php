@@ -9,6 +9,8 @@
     <title>Sign Up</title>
 </head>
 <?php
+    include('../hooks/useParams.php');
+
      if(isset($_GET['error'])){
         include('../components/dangeralert.php');
         if($_GET['error'] == 'usernamefail'){
@@ -42,7 +44,9 @@
         <div class="py-2 text-sm text-blue-600">
             Sign up here
         </div>
-        <form action="http://localhost/clinicManagementSystem/helpers/registerProcess.php" method="post">
+        <form action=<?php 
+           echo getBaseURL()."/helpers/registerProcess.php"
+         ?> method="post">
             <div class="grid gap-6 mb-6 md:grid-cols-2">
 
                 <!-- First Name -->
@@ -138,18 +142,11 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                 <input type="password" id="password"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-<<<<<<< HEAD
                     placeholder="•••••••••" name="password" required />
                 <i class="fas fa-eye absolute right-3 top-10 cursor-pointer" id="togglePassword"></i>
             </div>
 
            
-=======
-                    placeholder="•••••••••" required />
-            </div>
-
-
->>>>>>> d44e4f655433d05b86e293c394363ec83873eda6
 
 
 
@@ -169,9 +166,6 @@
                     </label>
                 </div>
 
-                <?php  
-                   include("../hooks/useParams.php");
-                ?>
                 <div>
                     <a href=<?php echo getBaseURL()."/pages/login.php"; ?>>Have an Account?</a>
                 </div>

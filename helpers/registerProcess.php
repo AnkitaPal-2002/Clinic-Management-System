@@ -24,8 +24,8 @@ if(isset($_POST['submit'])){
     $res = mysqli_query($connection, $query);
 
     // Urls
-    $success_url = getBaseURL().'/login.php';
-    $error_url = getBaseURL().'/register.php';
+    $success_url = getBaseURL().'/pages/login.php';
+    $error_url = getBaseURL().'/pages/register.php';
     
     if(mysqli_num_rows($res)>0){
 
@@ -40,7 +40,7 @@ if(isset($_POST['submit'])){
     $res = mysqli_query($connection, $query);
 
     if(mysqli_num_rows($res)>0){
-        header("Location: http://localhost/clinicManagementSystem/pages/register.php?error=emailfail");
+        header("Location: $error_url?error=emailfail");
         exit;    
     }
 
