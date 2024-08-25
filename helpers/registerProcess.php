@@ -44,7 +44,7 @@ if(isset($_POST['submit'])){
         exit;    
     }
 
-    $tb_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $tb_password = password_hash($_POST['password'], PASSWORD_DEFAULT, ['cost' => 10]);
 
 
     $tb_firstName = mysqli_real_escape_string($connection, strip_tags($_POST['firstName']));
