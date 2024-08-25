@@ -73,8 +73,8 @@
                 </div>
 
 
-                 <!-- Email -->
-                 <div>
+                <!-- Email -->
+                <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Email</label>
                     <input type="email" id="email" name="email"
@@ -138,11 +138,18 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                 <input type="password" id="password"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+<<<<<<< HEAD
                     placeholder="•••••••••" name="password" required />
                 <i class="fas fa-eye absolute right-3 top-10 cursor-pointer" id="togglePassword"></i>
             </div>
 
            
+=======
+                    placeholder="•••••••••" required />
+            </div>
+
+
+>>>>>>> d44e4f655433d05b86e293c394363ec83873eda6
 
 
 
@@ -164,9 +171,9 @@
 
                 <?php  
                    include("../hooks/useParams.php");
-                ?> 
+                ?>
                 <div>
-                    <a href=<?php echo getBaseURL()."/login.php"; ?>>Have an Account?</a>
+                    <a href=<?php echo getBaseURL()."/pages/login.php"; ?>>Have an Account?</a>
                 </div>
 
             </div>
@@ -176,30 +183,35 @@
             </button>
         </form>
     </section>
+    <script>
+
+
+        const togglePassword = document.querySelector("#togglePassword");
+        const password = document.querySelector("#password");
+
+        const toggleConfirmPassword = document.querySelector("#toggleConfirmPassword");
+        const confirmPassword = document.querySelector("#confirm_password");
+
+        // Toggle for the first password field
+        togglePassword.addEventListener("click", function () {
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+            this.classList.toggle("fa-eye-slash");
+        });
+
+        // Toggle for the confirm password field
+        toggleConfirmPassword.addEventListener("click", function () {
+            const type = confirmPassword.getAttribute("type") === "password" ? "text" : "password";
+            confirmPassword.setAttribute("type", type);
+            this.classList.toggle("fa-eye-slash");
+        });
+
+
+
+
+
+    </script>
 </body>
 
-<script>
-
-
-    const togglePassword = document.querySelector("#togglePassword");
-    const password = document.querySelector("#password");
-
-    const toggleConfirmPassword = document.querySelector("#toggleConfirmPassword");
-    const confirmPassword = document.querySelector("#confirm_password");
-
-    // Toggle for the first password field
-    togglePassword.addEventListener("click", function () {
-        const type = password.getAttribute("type") === "password" ? "text" : "password";
-        password.setAttribute("type", type);
-        this.classList.toggle("fa-eye-slash");
-    });
-
-    // Toggle for the confirm password field
-    toggleConfirmPassword.addEventListener("click", function () {
-        const type = confirmPassword.getAttribute("type") === "password" ? "text" : "password";
-        confirmPassword.setAttribute("type", type);
-        this.classList.toggle("fa-eye-slash");
-    });
-</script>
 
 </html>
