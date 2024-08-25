@@ -5,7 +5,7 @@ CREATE TABLE cms.Doctors (
     doctorSpecialist VARCHAR(50) NOT NULL,
     doctorContacts BIGINT,
     doctorEmail VARCHAR(50) NOT NULL UNIQUE,
-    doctorPassword VARCHAR(50) NOT NULL,
+    doctorPassword VARCHAR(150) NOT NULL,
     doctorFess INT NOT NULL,
     doctorExperience INT NOT NULL,
     doctorDescription VARCHAR(500),
