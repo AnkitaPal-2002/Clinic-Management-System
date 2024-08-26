@@ -14,13 +14,22 @@ $logoutURL = getBaseURL()."/pages/logout.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>Global Hospital</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
     <header class="bg-gradient-to-r from-purple-600 to-blue-500 text-white p-4">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold">🏥 Global Hospital</h1>
+                <span class="flex items-center gap-2">
+                    <!-- Logo -->
+                    <i class="fa-regular fa-hospital fa-flip-horizontal fa-lg" style="color: #ffffff;"></i>
+                    <span 
+                        class="self-center text-lg md:text-xl font-semibold whitespace-nowrap text-white"
+                    >
+                        Global Clinic
+                    </span>
+                </span>
             <button id="logoutBtn" class="text-sm bg-white text-purple-600 px-3 py-1 rounded">Logout</button>
         </div>
     </header>
