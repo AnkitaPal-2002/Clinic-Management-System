@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .btn-transition {
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transition effect */
+        }
+        
+        .btn-transition:hover {
+            color: white; /* Text color on hover */
+        }
+    </style>
 </head>
 <body>
 <header class="bg-blue-800 text-white p-4 flex justify-between items-center max-w-7xl mx-auto rounded-md">
@@ -14,13 +23,17 @@
                 Global Clinic
             </span>
         </span>
-        <button id="toggleSidebarButton" class="lg:hidden p-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-            </svg>
-            <span class="sr-only">Toggle menu</span>
+        <button id="logoutBtn" 
+            class="btn-transition text-white bg-indigo-500 hover:bg-indigo-600 font-medium rounded-lg text-sm px-2 md:px-5 py-2.5 focus:outline-none"
+        >
+            Logout
         </button>
     </header>
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            // Add logout functionality here
+            alert('Logout clicked');
+        });
+        </script>
 </body>
 </html>
