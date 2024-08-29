@@ -112,7 +112,9 @@
                             <th scope="col" class="px-6 py-3">Fess</th>
                             <th scope="col" class="px-6 py-3">Experience</th>
                             <th scope="col" class="px-6 py-3">Phone Number</th>
-                            <th scope="col" class="px-6 py-3">Description</th>
+                            <!-- <th scope="col" class="px-6 py-3">Description</th> -->
+                            <th scope="col" class="px-6 py-3">Delete Doctor</th>
+                            <th scope="col" class="px-6 py-3">Edit Doctor</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -131,7 +133,23 @@
                             echo "<td class='px-6 py-4'>{$doctor['doctorFess']}</td>";
                             echo "<td class='px-6 py-4'>{$doctor['doctorExperience']}</td>";
                             echo "<td class='px-6 py-4'>{$doctor['doctorContacts']}</td>";
-                            echo "<td class='px-6 py-4'>{$doctor['doctorDescription']}</td>";
+                            // echo "<td class='px-6 py-4'>{$doctor['doctorDescription']}</td>";
+                            echo "<td style='text-align: center;'>
+                                    <a href='#'>
+                                        <button type='button' class='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
+                                            <i class='fa-solid fa-trash-can fa-xl'></i>
+                                        </button>
+                                    </a>
+                                </td>";
+
+                            echo "<td style='text-align: center;'>
+                                    <a href='#'>
+                                        <button type='button' class='focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900'>
+                                            <i class='fa-solid fa-user-pen fa-xl'></i>
+                                        </button>
+                                    </a>
+                                </td>";
+
                             echo "</tr>";
                         }
                         ?>
