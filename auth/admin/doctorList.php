@@ -21,16 +21,34 @@
     include('../../hooks/useUsers.php');
     include('../../config/db.php');
     include('../../components/dangeralert.php');
+    include('../../components/successAlert.php');
     include('../../hooks/useParams.php');
 
     $doctors = getAllDoctorDetails($connection);
     $doctorCount = count($doctors);
+
+    $url = getHostURL();
+    $deleteDoctor = $url."/helpers/deleteDoctorProcess.php";
+    $editDoctor = $url."/helpers/editDoctorProcess.php";
+
+
+   
+    
 ?>
 
 <body class="min-h-screen bg-white">
     <!-- Header -->
     <?php 
         include('../../components/navigation.php');
+        if(isset($_GET['error'])){
+            if($_GET['error'] == 'wrong'){
+                danger('Something wenr wrong !!!!');
+            }
+        }else if(isset($_GET['success'])){
+            if($_GET['success'] == 'true'){
+                success('Doctor details delete successfully.');
+            }
+        }
     ?>
 
     <div class="flex flex-col lg:flex-row max-w-7xl mx-auto">
@@ -80,8 +98,14 @@
                 </button>
                 <button
                     class="btn-transition flex items-center w-full p-2 text-left text-white md:text-black hover:bg-blue-600 md:hover:text-white rounded-md gap-3">
-                    <i class="fa-solid fa-calendar-check "></i>
-                    Add Doctor
+                    <a href=<?php 
+                        echo getHostURL()."/auth/admin/addDoctor.php"
+                    ?>
+                        class="flex items-center gap-2"
+                        >
+                        <i class="fa-solid fa-calendar-check "></i>
+                        Add Doctor
+                    </a>
                 </button>
                 <button
                     class="btn-transition flex items-center w-full p-2 text-left text-white md:text-black hover:bg-blue-600 md:hover:text-white rounded-md gap-3">
@@ -105,6 +129,7 @@
                     </caption>
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
+                            <th scope="col" class="px-6 py-3">Sl. No.</th>
                             <th scope="col" class="px-6 py-3">doctor name</th>
                             <th scope="col" class="px-6 py-3">doctor Username</th>
                             <th scope="col" class="px-6 py-3">Specialist</th>
@@ -124,8 +149,10 @@
                             # code...
                             danger("No records found...");
                         }
+                        $i = 1;
                         foreach ($doctors as $doctor) {
                             echo "<tr class='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>";
+                            echo "<td class='px-6 py-4'>{$i}</td>";
                             echo "<th scope='row' class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>{$doctor['doctorName']}</th>";
                             echo "<td class='px-6 py-4'>{$doctor['dUserName']}</td>";
                             echo "<td class='px-6 py-4'>{$doctor['doctorSpecialist']}</td>";
@@ -133,17 +160,22 @@
                             echo "<td class='px-6 py-4'>{$doctor['doctorFess']}</td>";
                             echo "<td class='px-6 py-4'>{$doctor['doctorExperience']}</td>";
                             echo "<td class='px-6 py-4'>{$doctor['doctorContacts']}</td>";
-                            // echo "<td class='px-6 py-4'>{$doctor['doctorDescription']}</td>";
+                            $username = $doctor["dUserName"];
+                            //echo "<td class='px-6 py-4'>{$doctor['doctorDescription']}</td>";
+                            $i++;
+
+                            //Delete button
                             echo "<td style='text-align: center;'>
-                                    <a href='#'>
+                                    <a href='$deleteDoctor?username=$username'>
                                         <button type='button' class='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
                                             <i class='fa-solid fa-trash-can fa-xl'></i>
                                         </button>
                                     </a>
                                 </td>";
-
+                            
+                            //Edit button
                             echo "<td style='text-align: center;'>
-                                    <a href='#'>
+                                    <a href='$editDoctor'>
                                         <button type='button' class='focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900'>
                                             <i class='fa-solid fa-user-pen fa-xl'></i>
                                         </button>

@@ -71,8 +71,14 @@
                 </button>
                 <button
                     class="btn-transition flex items-center w-full p-2 text-left text-white md:text-black hover:bg-blue-600 md:hover:text-white rounded-md gap-3">
-                    <i class="fa-solid fa-calendar-check "></i>
-                    Add Doctor
+                    <a href=<?php 
+                        echo getHostURL()."/auth/admin/addDoctor.php"
+                        ?>
+                        class="flex items-center gap-2"
+                        >
+                        <i class="fa-solid fa-calendar-check "></i>
+                        Add Doctor
+                    </a>
                 </button>
                 <button
                     class="btn-transition flex items-center w-full p-2 text-left text-white md:text-black hover:bg-blue-600 md:hover:text-white rounded-md gap-3">
