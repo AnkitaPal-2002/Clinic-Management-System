@@ -8,12 +8,28 @@
 </head>
 <body>
     <?php
-    include('../../components/navigation.php')
+    include('../../components/navigation.php');
+    include('../../components/dangeralert.php');
+    include('../../components/successAlert.php');
+
+    if(isset($_GET['error'])){
+        if($_GET['error'] == 'userfail'){
+            danger('Username already exists!!! Please try again !!!!');
+        }else if($_GET['error'] == 'emailfail'){
+            danger('Email already exists !!! Please try again!!!!');
+        }else if($_GET['error'] == 'wrong'){
+            danger('Something went wrong!!!!');
+        }
+    }else if(isset($_GET['success'])){
+        if($_GET['success'] == 'true'){
+            success('New doctor record created successfully!');
+        } 
+    }       
     ?>
     <section>
         <div class="bg-white border rounded-lg px-8 py-6 mx-auto my-8 max-w-2xl">
             <h2 class="text-2xl font-medium mb-4">Add a doctor</h2>
-            <form action="" >
+            <form action="../../helpers/addDoctorProcess.php" method="post">
                 <div class="mb-4">
                     <label for="doctorName" class="block text-gray-700 font-medium mb-2"> Doctor's Name</label>
                     <input type="text" id="doctorName" name="doctorName"
@@ -61,7 +77,7 @@
 
                 <div class="mb-4">
                     <label for="doctorExperience" class="block text-gray-700 font-medium mb-2">Doctor's Experience</label>
-                    <input type="number" id="doctorExperience" name="doctorExperience"
+                    <input type="number" id="doctorExperience" name="doctorExperience" min="0" max="60"
                         class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400" required>
                 </div>
                 
@@ -84,7 +100,7 @@
                 </div>
 
                 <div class="flex justify-end">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded-lg hover:bg-blue-600">Add a doctor</button>
+                    <button type="submit" value="submit" name="submit" class="bg-blue-500 text-white px-4 py-3 rounded-lg hover:bg-blue-600">Add a doctor</button>
                 </div>
 
             </form>
