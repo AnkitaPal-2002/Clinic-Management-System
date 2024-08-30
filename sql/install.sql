@@ -53,3 +53,11 @@ CREATE TABLE cms.Admins (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(160) NOT NULL
 );
+
+--Move the attribute aId at first
+ALTER TABLE `admins` CHANGE `ald` `ald` INT(11) NOT NULL AUTO_INCREMENT FIRST;
+
+--Insertion of the data in admin table
+-- hash value of 1234 is $2y$10$nxEPUC4DcH4eq26vEi53T.zjcdNTOmPnqVTJTozJJhrzdO5KvrU.C
+INSERT INTO admins (aUserName, ald, email, password)
+VALUES ('admin', '1', 'admin.clinic@gmail.com', '$2y$10$nxEPUC4DcH4eq26vEi53T.zjcdNTOmPnqVTJTozJJhrzdO5KvrU.C');
