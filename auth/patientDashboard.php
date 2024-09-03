@@ -1,11 +1,14 @@
+<?php 
+    include ('./auth.php');
+?>
 <?php
-include("../hooks/usePatientUserName.php");
-include("../hooks/useParams.php");
-session_start();
+    include("../hooks/usePatientUserName.php");
+    include("../hooks/useParams.php");
+    session_start();
 
 
-$user = getPdetailsfromPUserName($_SESSION["pUserName"]);
-$logoutURL = getBaseURL()."/pages/logout.php";
+    $user = getPdetailsfromPUserName($_SESSION["pUserName"]);
+    $logoutURL = getBaseURL()."/pages/logout.php";
 
 ?>
 

@@ -1,13 +1,14 @@
 <?php
-include("../hooks/useParams.php");
+    include("../hooks/useParams.php");
 
-session_start();
+    session_start();
+    session_unset();
+    session_destroy();
 
+    $loginURL = getBaseURL()."/pages/login.php";
 
-session_destroy();
-$loginURL = getBaseURL()."/pages/login.php";
+    header("Location: $loginURL?success=true");
 
-header("Location: $loginURL?success=true");
-exit();
+    exit();
 
 ?>

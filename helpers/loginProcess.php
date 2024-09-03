@@ -36,6 +36,8 @@ if(isset($_POST["submit"])){
 
             if(password_verify($tb_password, $stored_password_hash)) {
                 // Password is correct, proceed with login
+                $_SESSION['isLoggedIn'] = true; // Set login flag
+                $_SESSION['userRole'] = PATIENT; // Store role
                 $_SESSION['pUserName'] = $row['pUserName']; // Assuming the column is puserName
                 header('Location: ' . $success_url.'/patientDashboard.php');
                 exit();
@@ -58,6 +60,8 @@ if(isset($_POST["submit"])){
 
             if(password_verify($tb_password, $stored_password_hash)) {
                 // Password is correct, proceed with login
+                $_SESSION['isLoggedIn'] = true; // Set login flag
+                $_SESSION['userRole'] = DOCTOR; // Store role
                 $_SESSION['dUserName'] = $row['dUserName']; // Assuming the column is duserName
                 header('Location: ' . $success_url.'/doctorDashboard.php');
                 exit();
@@ -80,6 +84,8 @@ if(isset($_POST["submit"])){
 
             if(password_verify($tb_password, $stored_password_hash)) {
                 // Password is correct, proceed with login
+                $_SESSION['isLoggedIn'] = true; // Set login flag
+                $_SESSION['userRole'] = ADMIN; // Store role
                 $_SESSION['aUserName'] = $row['aUserName']; // Assuming the column is auserName
                 header('Location: ' . $success_url.'/adminDashboard.php');
                 exit();

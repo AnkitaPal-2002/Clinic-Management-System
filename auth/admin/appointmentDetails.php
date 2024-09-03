@@ -1,3 +1,8 @@
+<?php 
+    include ('../auth.php');
+    checkAccess('Admin');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
