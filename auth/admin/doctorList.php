@@ -121,7 +121,7 @@
         </aside>
 
         <!-- doctor table Content -->
-        <section class="max-w-6xl m-auto">
+        <section class="max-w-5xl m-auto">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <caption

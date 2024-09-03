@@ -2,29 +2,27 @@
 session_start();
 include("../config/db.php");
 include("../hooks/useParams.php");
-//include("../hooks/useParams.php");
 
-// Enable error reporting for debugging (disable in production)
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Check if admin is logged in
+if (!isset($_SESSION["aUserName"])) {
+    header("Location: /login.php?error=notloggedin");
+    exit();
+}
 
-if(isset($_POST["submit"])){
-    //var_dump($_POST);
+if (isset($_POST["submit"])) {
     $aUserName = $_SESSION["aUserName"];
     $adminPassword = $_POST["adminPassword"];
-    $url = getHostURL()."/auth/admin/doctorList.php";
+    $url = getHostURL() . "/auth/admin/doctorList.php";
 
     $sql = "SELECT * FROM admins WHERE aUserName='$aUserName'";
     $result = mysqli_query($connection, $sql);
 
-    if(mysqli_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         $stored_password_hash = $row['password'];
 
-        if(password_verify($adminPassword, $stored_password_hash)) {
-            //var_dump($_POST);
-            // Escape strings
+        if (password_verify($adminPassword, $stored_password_hash)) {
+            // Escape strings to prevent SQL injection
             $dUserName = mysqli_real_escape_string($connection, $_POST['dUserName']);
             $doctorName = mysqli_real_escape_string($connection, $_POST['doctorName']);
             $doctorSpecialist = mysqli_real_escape_string($connection, $_POST['doctorSpecialist']);
@@ -52,22 +50,17 @@ if(isset($_POST["submit"])){
                 header("Location: editDoctorProcess.php?error=dberror");
                 exit();
             }
-
-
-
-
-        }else{
-           // $_SESSION['error'] = 'adminPasswordwrong';
-            header('Location : editDoctorProcess.php');
-            echo "error";
+        } else {
+            include("../components/navigation.php");
+            include("../components/errorHandler.php");
+            errorHandler("Admin Password is wrong", getHostURL()."/auth/admin/doctorList.php" );
         }
+    } else {
+        header("Location: /login.php?error=nouser");
+        exit();
     }
-
-
-
-
-
+} else {
+    header("Location: /editDoctorForm.php?error=invalidaccess");
+    exit();
 }
-
-
 ?>

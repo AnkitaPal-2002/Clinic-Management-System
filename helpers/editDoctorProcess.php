@@ -7,49 +7,43 @@
     <title>Admin | Update Doctor Details </title>
 </head>
 <body>
-    <?php
+
+<?php
     session_start();
     include('../components/navigation.php');
     include('../components/dangeralert.php');
     include('../components/successAlert.php');
-if(isset($_SESSION['error'])){
-    if($_SESSION['error'] == 'adminPasswordwrong'){
-        danger('Admin please enter valid password');
-        unset($_SESSION['error']);
+    if(isset($_SESSION['error'])){
+        if($_SESSION['error'] == 'adminPasswordwrong'){
+            danger('Admin please enter valid password');
+            unset($_SESSION['error']);
+        }
     }
-}
 
-if(isset($_GET['username'])){
-    include('../config/db.php');
-    include('../hooks/useUser.php');
+    if(isset($_GET['username'])){
+        include('../config/db.php');
+        include('../hooks/useUser.php');
 
-    if(isset($_GET['error'])){
-        if($_GET['error'] == 'wrong'){
-                danger('Admin enter wrong password!!!');
-        }else if($_GET['error'] == 'dberror'){
-                danger('Database problem');
-        }
-    }else if(isset($_GET['status'])){
-        if($_GET['status'] == 'success'){
-            success('updated sucessfully');
-        }
-    }    
+        if(isset($_GET['error'])){
+            if($_GET['error'] == 'wrong'){
+                    danger('Admin enter wrong password!!!');
+            }else if($_GET['error'] == 'dberror'){
+                    danger('Database problem');
+            }
+        }else if(isset($_GET['status'])){
+            if($_GET['status'] == 'success'){
+                success('updated sucessfully');
+            }
+        }    
 
    
+        $dUserName = $_GET['username'];
 
-    
+        $doctor = getDoctor($connection, $dUserName);
+        $doctor = $doctor[0];
 
 
-    $dUserName = $_GET['username'];
-
-    $doctor = getDoctor($connection, $dUserName);
-    $doctor = $doctor[0];
-
-    // print_r($doctor);
-
-    //echo $doctor['doctorName'];
-
-    ?>
+?>
 
 <section>
         <div class="bg-white border rounded-lg px-8 py-6 mx-auto my-8 max-w-2xl">
@@ -62,7 +56,7 @@ if(isset($_GET['username'])){
                 </div>
 
                 <div class="mb-4">
-                    <label for="dUserName" class="block text-gray-700 font-medium mb-2">Doctor's Username</label>
+                    <!-- <label for="dUserName" class="block text-gray-700 font-medium mb-2">Doctor's Username</label> -->
                     <input type="hidden" id="dUserName" name="dUserName" value="<?php echo $dUserName?>"
                         class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400">
                 </div>
