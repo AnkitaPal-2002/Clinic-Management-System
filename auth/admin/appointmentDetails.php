@@ -1,6 +1,7 @@
 <?php 
-    include ('../auth.php');
-    checkAccess('Admin');
+    include ('./auth.php');
+    include('../../hooks/useParams.php');
+    checkAccess('Admin', getHostURL());
 ?>
 
 <!DOCTYPE html>

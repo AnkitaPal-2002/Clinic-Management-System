@@ -1,6 +1,7 @@
 <?php 
     include ('./auth.php');
-    checkAccess('Admin');
+    include('../hooks/useParams.php');
+    checkAccess('Admin', getHostURL());
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +22,7 @@
         
     </style>
 </head>
-<?php 
-    include('../hooks/useParams.php');
- ?>
+
 <body class="min-h-screen bg-white max-w-7xl mx-auto">
     <!-- Header -->
     <?php
@@ -85,11 +84,16 @@
                         Add Doctor
                     </a>
                 </button>
-                <button
-                    class="btn-transition flex items-center w-full p-2 text-left text-white md:text-black hover:bg-blue-600 md:hover:text-white rounded-md gap-3">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                      SignOut
-                </button>
+                <a href=<?php 
+                    echo getHostURL()."/pages/logout.php"
+                    ?>
+                >
+                    <button
+                        class="btn-transition flex items-center w-full p-2 text-left text-white md:text-black hover:bg-blue-600 md:hover:text-white rounded-md gap-3">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        SignOut
+                    </button>
+                </a>
 
             </nav>
         </aside>

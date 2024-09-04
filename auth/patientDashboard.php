@@ -1,11 +1,10 @@
 <?php 
-    include ('./auth.php');
-?>
-<?php
-    include("../hooks/usePatientUserName.php");
-    include("../hooks/useParams.php");
-    session_start();
 
+    include ('./auth.php');
+    include('../hooks/useParams.php');
+    checkAccess('Patient', getHostURL());
+
+    include("../hooks/usePatientUserName.php");
 
     $user = getPdetailsfromPUserName($_SESSION["pUserName"]);
     $logoutURL = getBaseURL()."/pages/logout.php";
@@ -36,7 +35,10 @@
                     <i class="fa-regular fa-calendar-check fa-2xl fa-bounce"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-2">Book My Appointment</h3>
-                <button class="bg-purple-600 text-white px-4 py-2 rounded mt-2 hover:bg-purple-700 transition duration-300">Book Appointment</button>
+                <a href= <?php echo getHostURL()."/auth/patient/departmentList.php"?>
+                >
+                    <button class="bg-purple-600 text-white px-4 py-2 rounded mt-2 hover:bg-purple-700 transition duration-300">Book Appointment</button>
+                </a>
             </div>
 
             <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">

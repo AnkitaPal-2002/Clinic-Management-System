@@ -1,6 +1,7 @@
 <?php 
-    include ('../auth.php');
-    checkAccess('Admin');
+    include ('./auth.php');
+    include('../../hooks/useParams.php');
+    checkAccess('Admin', getHostURL());
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +28,6 @@
     include('../../config/db.php');
     include('../../components/dangeralert.php');
     include('../../components/successAlert.php');
-    include('../../hooks/useParams.php');
 
     $doctors = getAllDoctorDetails($connection);
     $doctorCount = count($doctors);
@@ -116,11 +116,16 @@
                         Add Doctor
                     </a>
                 </button>
-                <button
-                    class="btn-transition flex items-center w-full p-2 text-left text-white md:text-black hover:bg-blue-600 md:hover:text-white rounded-md gap-3">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                      SignOut
-                </button>
+                <a href=<?php 
+                    echo getHostURL()."/pages/logout.php"
+                    ?>
+                >
+                    <button
+                        class="btn-transition flex items-center w-full p-2 text-left text-white md:text-black hover:bg-blue-600 md:hover:text-white rounded-md gap-3">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                          SignOut
+                    </button>
+                </a>
 
             </nav>
         </aside>
