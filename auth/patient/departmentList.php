@@ -12,7 +12,7 @@
     <title>Patient | Department List</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="max-w-6xl mx-auto">
     <?php
     
     include ('../../components/departmentCard.php');
@@ -88,12 +88,16 @@
     ?>
 
 
+    <header>
+        <?php include ('../../components/navigation.php') ?>
+    </header>
     <section>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+        <h1 class="text-2xl my-4 font-bold underline cursor-default">List of different Doctor's category</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 p-4">
     
         <?php
         foreach ($specialities as $speciality) {
-            echo "<div class='flex items-center justify-center bg-gray-100 p-4 rounded-lg shadow-lg'>";
+            echo "<div class='flex items-center justify-center bg-gray-100 p-4 rounded-lg hover:shadow-2xl'>";
             // Pass title, description, and url to the departmentCard function
             departMentCard($speciality['title'], $speciality['description'], $speciality['url']);
             echo "</div>";
