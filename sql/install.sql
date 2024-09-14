@@ -33,7 +33,7 @@ CREATE TABLE cms.Doctors (
 -- Appointment table creation
 
 CREATE TABLE cms.Appointments (
-    appointmentId INT NOT NULL PRIMARY KEY,
+    appointmentId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     dUserName VARCHAR(50) NOT NULL,
     pUserName VARCHAR(50) NOT NULL,
     appointmentReason VARCHAR(500) NOT NULL,

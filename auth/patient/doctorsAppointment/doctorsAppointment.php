@@ -3,6 +3,9 @@
     include '../../../config/db.php';
     include '../../../hooks/useParams.php';
     include '../../../hooks/useDoctor.php';
+    include '../../../components/dangeralert.php';
+    include '../../../components/successAlert.php';
+    include '../../../helpers/bookAppointmentProcess.php';
 
     checkAccess('Patient', getHostURL());
 
@@ -13,15 +16,19 @@
         // Handle form submission
         $date = $_POST['date'];
         $time = $_POST['time'];
+        $reason = $_POST['applicationReason']; 
         
-        
-        if (!empty($date) && !empty($time)) {
-            
-            header('Location: success.php'); 
-            exit();
-            
+        // Ensure the date, time, and reason are not empty
+        if (!empty($date) && !empty($time) && !empty($reason)) {
+            if(bookDoctorAppointment($Params, $_SESSION['pUserName'], $time, $date, $reason, $connection)) {
+                success('Appointment booked successfully. Thank you.');
+            } else {
+                danger('Appointment is not booked. Please try again.');
+            }
+            // header('Location: success.php'); 
+            // exit();
         } else {
-            $error = 'Please provide both date and time.';
+            $error = 'Please provide the date, time, and a reason for the appointment.';
         }
     }
 ?>
@@ -76,6 +83,10 @@
                     <div class="mb-4">
                         <label for="time" class="block text-sm font-medium text-gray-700 mb-1">Time</label>
                         <input type="time" id="time" name="time" class="w-full p-2 border rounded" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="applicationReason" class="block text-sm font-medium text-gray-700 mb-1">Application Reason</label>
+                        <textarea id="applicationReason" name="applicationReason" rows="4" class="w-full p-2 border rounded" placeholder="Reason for booking this appointment..." required></textarea>
                     </div>
                     <?php if (isset($error)) : ?>
                         <p class="text-red-500"><?php echo htmlspecialchars($error); ?></p>
