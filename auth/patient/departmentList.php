@@ -15,7 +15,7 @@
 <body class="max-w-6xl mx-auto">
     <?php
     
-    include ('../../components/departmentCard.php');
+    include '../../components/departmentCard.php';
 
     $specialities = [
         [
