@@ -1,11 +1,29 @@
 <?php 
     include '../../auth.php';
+    include '../../../config/db.php';
     include '../../../hooks/useParams.php';
+    include '../../../hooks/useDoctor.php';
 
     checkAccess('Patient', getHostURL());
 
-    // $doctorName = $_GET['docName'];
-    //  Here you have to fetch the doctor details clickced by the user 
+    $Params = $_GET['docUsername'];
+    $doctor = getDoctorByUserName($Params, $connection);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Handle form submission
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+        
+        
+        if (!empty($date) && !empty($time)) {
+            
+            header('Location: success.php'); 
+            exit();
+            
+        } else {
+            $error = 'Please provide both date and time.';
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +38,7 @@
     <?php include ('../../../components/navigation.php') ?>
 
     <main class="max-w-6xl mx-auto p-4">
-        <h2 class="text-2xl font-bold mb-6 text-center">Welcome UserName</h2>
+        <h2 class="text-2xl font-bold mb-6 text-center">Book Appointment with <?php echo htmlspecialchars($doctor['doctorName']); ?></h2>
         <section class="block md:flex gap-3 m-2">
 
             <div class="bg-white rounded-lg shadow-md p-6 mb-4">
@@ -28,7 +46,7 @@
                 <nav>
                     <ul>
                         <li class="mb-2">
-                            <a href=<?php echo getHostURL()."/auth/patientDashboard.php" ?> class="text-purple-600 hover:underline">Dashboard</a>
+                            <a href="<?php echo getHostURL()."/auth/patientDashboard.php"; ?>" class="text-purple-600 hover:underline">Dashboard</a>
                         </li>
                         <li class="mb-2">
                             <a href="#" class="text-purple-600 hover:underline">Book Appointment</a>
@@ -41,28 +59,29 @@
             </div>
                        
             <div class="bg-white rounded-lg shadow-md p-6 mb-6 grow">
-                <h3 class="text-xl font-semibold mb-4">Create an appointment</h3>
-                <form>
+                <h3 class="text-xl font-semibold mb-4">Create an Appointment</h3>
+                <form method="POST">
                     <div class="mb-4">
-                        <label for="doctors" class="block text-sm font-medium text-gray-700 mb-1">Doctors:</label>
-                        <input type="text" id="fees" value="Ayan Saha" class="w-full p-2 border rounded bg-gray-100" readonly>
+                        <label for="doctorName" class="block text-sm font-medium text-gray-700 mb-1">Doctor:</label>
+                        <input type="text" id="doctorName" value="<?php echo htmlspecialchars($doctor['doctorName']); ?>" class="w-full p-2 border rounded bg-gray-100" readonly>
                     </div>
                     <div class="mb-4">
                         <label for="fees" class="block text-sm font-medium text-gray-700 mb-1">Consultancy Fees</label>
-                        <input type="text" id="fees" value="550" class="w-full p-2 border rounded bg-gray-100" readonly>
+                        <input type="text" id="fees" value="<?php echo htmlspecialchars($doctor['doctorFess']); ?>" class="w-full p-2 border rounded bg-gray-100" readonly>
                     </div>
                     <div class="mb-4">
                         <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                        <input type="date" id="date" class="w-full p-2 border rounded">
+                        <input type="date" id="date" name="date" class="w-full p-2 border rounded" required>
                     </div>
                     <div class="mb-4">
                         <label for="time" class="block text-sm font-medium text-gray-700 mb-1">Time</label>
-                        <input type="time" id="time" class="w-full p-2 border rounded">
+                        <input type="time" id="time" name="time" class="w-full p-2 border rounded" required>
                     </div>
+                    <?php if (isset($error)) : ?>
+                        <p class="text-red-500"><?php echo htmlspecialchars($error); ?></p>
+                    <?php endif; ?>
                     <button type="submit" class="w-full bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700">
-                        <!-- After clicking this button Patient booking must be store in the database-->
-                        Create a new appointment
-
+                        Create Appointment
                     </button>
                 </form>
             </div>

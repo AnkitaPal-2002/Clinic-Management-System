@@ -22,5 +22,15 @@ function getDoctorBySpecialization($speciality, $connection){
 
 }
 
+function getDoctorByUserName($username, $connection){
+    $sql = "SELECT * FROM cms.Doctors WHERE dUserName = '$username'";
+
+    $query = mysqli_query($connection, $sql);
+
+    $row=mysqli_fetch_assoc($query);
+
+    return $row;
+}
+
 
 ?>

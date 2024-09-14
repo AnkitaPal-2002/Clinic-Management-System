@@ -2,7 +2,7 @@
     include '../../auth.php';
     include '../../../config/db.php';
     include '../../../hooks/useParams.php';
-    include '../../../hooks/getDoctorBySpecialization.php';
+    include '../../../hooks/useDoctor.php';
 
     checkAccess('Patient', getHostURL());
 
