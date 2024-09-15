@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,24 +17,29 @@
 </head>
 <body>
 <header class="bg-blue-800 text-white p-4 flex justify-between items-center max-w-7xl mx-auto rounded-md">
-        <span class="flex items-center gap-2 ">
+        <span class="flex items-center gap-2">
             <i class="fa-regular fa-hospital fa-flip-horizontal fa-lg" style="color: #ffffff;"></i>
             <!-- Logo -->
             <span class="self-center text-lg md:text-xl font-semibold whitespace-nowrap text-white">
                 Global Clinic
             </span>
         </span>
+       
         <button id="logoutBtn" 
             class="btn-transition text-white bg-indigo-500 hover:bg-indigo-600 font-medium rounded-lg text-sm px-2 md:px-5 py-2.5 focus:outline-none"
         >
             Logout
         </button>
+       
     </header>
     <script>
-        document.getElementById('logoutBtn').addEventListener('click', function() {
-            // Add logout functionality here
-            alert('Logout clicked');
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault(); 
+            const confirmed = confirm('Are you sure you want to logout?');
+            if (confirmed) {
+                window.location.href = '/clinicManagementSystem/pages/logout.php'; 
+            }
         });
-        </script>
+    </script>
 </body>
 </html>
