@@ -46,7 +46,11 @@
                     <i class="fa-solid fa-list-ul fa-shake fa-2xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-2">My Appointments</h3>
-                <button class="bg-purple-600 text-white px-4 py-2 rounded mt-2 hover:bg-purple-700 transition duration-300">View Appointment History</button>
+                <button class="bg-purple-600 text-white px-4 py-2 rounded mt-2 hover:bg-purple-700 transition duration-300">
+                    <a href="<?php echo getHostURL()."/auth/patient/doctorsAppointment/appointmentHistory.php"; ?>">
+                        View Appointment History
+                    </a>
+                </button>
             </div>
         </div>
     </main>

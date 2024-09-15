@@ -37,7 +37,7 @@
                             <a href="<?php echo getHostURL()."/auth/patientDashboard.php"; ?>" class="text-purple-600 hover:underline">Dashboard</a>
                         </li>
                         <li class="m-2 p-2">
-                            <a href="#" class="text-purple-600 hover:underline">Book Appointment</a>
+                            <a href="<?php echo getHostURL()."/auth/patient/departmentList.php"; ?>" class="text-purple-600 hover:underline">Book Appointment</a>
                         </li>
                         <li class="m-2 p-2 bg-purple-600 rounded-md">
                             <a href="#" class="text-white hover:underline">Appointment History</a>
