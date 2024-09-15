@@ -11,7 +11,7 @@
     checkAccess('Patient', getHostURL());
 
     // Get the appointment details for the logged-in patient
-    $appointments = getAppointmentDetailsByUsername($_SESSION['pUserName'], $connection);
+    $appointments = getAppointmentDetailsByPatientUsername($_SESSION['pUserName'], $connection);
 ?>
 
 <!DOCTYPE html>
