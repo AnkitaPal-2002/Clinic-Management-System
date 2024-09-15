@@ -73,21 +73,31 @@
                                     echo "<td class='px-6 py-4'>{$appointment['appointmentReason']}</td>";
                                     echo "<td class='px-6 py-4'>{$appointment['appointmentDate']}</td>";
                                     echo "<td class='px-6 py-4'>{$appointment['appointmentTime']}</td>";
-                                    // $appointmentId = $appointment["appointmentId"];
                                     
-                                    // Cancel appointment button
-                                    echo "<td class='px-6 py-4'>
-                                            <a href='cancelAppointment.php?appointmentId'>
-                                                <button type='button' class='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
-                                                    Cancel
-                                                </button>
-                                            </a>
-                                        </td>";
+                                    // Check if the appointment's status is 0 (active) to show the cancel button
+                                    if ($appointment['appointmentStatus'] == -1) {
+                                        
+                                        echo "<td class='px-6 py-4 text-red-500'>Cancel by Patient</td>";
+                                    } else if ($appointment['appointmentStatus'] == 1) {
+                                        echo "<td class='px-6 py-4 text-red-500'>Cancel by Doctor</td>";
+                                    }
+                                    else {
+                                        echo "<td class='px-6 py-4'>
+                                                <a href='#'>
+                                                    <button type='button' class='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
+                                                        Cancel
+                                                    </button>
+                                                </a>
+                                            </td>";
+                                    }
+                            
                                     echo "</tr>";
                                     $i++;
                                 }
                             }
                             ?>
+                            
+                            
                         </tbody>
                     </table>
                 </div>
