@@ -122,3 +122,5 @@ INSERT INTO cms.Doctors (dUserName, doctorName, doctorSpecialist, doctorContacts
 VALUES 
 ('obstetrician_gynecologist_02', 'Dr. Natalie Lee', 'Obstetricians and Gynecologists', 9876543520, 'natalie.obgyn@example.com', '$2y$10$R9MiQZwIsAuZ1niBFf8xu.iKDpAHzvF2NpUXxKvOx5YwMtQ9K1L7W', 670, 21, "Provides comprehensive care related to women\'s health, including reproductive and gynecological care.");
 
+-- Set all password to 1234
+UPDATE doctors SET doctorPassword = '$2y$10$yhwfDDdm0KJjDsEdXvyF/edKNutvFKdOhW753WBOxYPLXhW93ogQG';
