@@ -1,15 +1,18 @@
 <?php 
-    include ('./auth.php');
-    include ('../config/db.php');
-    include ('../hooks/useParams.php');
-    include ('../hooks/useDoctor.php');
-    include ('../hooks/useAppointment.php');
-    include ('../components/dangeralert.php');
-    checkAccess('Doctor', getHostURL());
+include ('./auth.php');
+include ('../config/db.php');
+include ('../hooks/useParams.php');
+include ('../hooks/useDoctor.php');
+include ('../hooks/useAppointment.php');
+include ('../components/dangeralert.php');
+include ('../components/successAlert.php');
 
+// Check access and redirect if needed
+checkAccess('Doctor', getHostURL());
 
-    $appointments = getAppointmentDetailsByDoctorUsername($_SESSION['dUserName'], $connection);
-    $doctor = getDoctorByUserName($_SESSION['dUserName'], $connection);
+// Fetch appointment details and doctor info
+$appointments = getAppointmentDetailsByDoctorUsername($_SESSION['dUserName'], $connection);
+$doctor = getDoctorByUserName($_SESSION['dUserName'], $connection);
 ?>
 
 <!DOCTYPE html>
@@ -22,10 +25,23 @@
     <title>Global Clinic Doctor Dashboard</title>
 </head>
 <body class="bg-gray-100">
-    <?php include '../components/navigation.php'; ?>
+    <?php 
+        include '../components/navigation.php'; 
+        
+        // Check and display success or error messages
+        $success = isset($_GET['success']) ? $_GET['success'] : false;
+        $error = isset($_GET['error']) ? $_GET['error'] : false;
+        $message = isset($_GET['message']) ? $_GET['message'] : '';
+        
+        if ($success == 'true') {
+            success($message);
+        } else if ($error == 'true') {
+            danger($message);
+        }
+    ?>
 
     <main class="max-w-6xl mx-auto p-4">
-        <h2 class="text-2xl font-bold mb-6 text-center">Appointment History for <?php echo $doctor["doctorName"] ?></h2>
+        <h2 class="text-2xl font-bold mb-6 text-center">Appointment History for <?php echo htmlspecialchars($doctor["doctorName"]); ?></h2>
         <section class="block md:flex gap-3 m-2">
 
             <div class="bg-white rounded-lg shadow-md p-6 mb-4">
@@ -43,11 +59,10 @@
                 <section class="max-w-4xl m-auto">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <caption
-                            class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+                        <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
                             Appointment History
                             <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-                                View all your previous appointments with details such as doctor name, appointment reason, and schedule.
+                                View all your previous appointments with details such as patient name, appointment reason, and schedule.
                             </p>
                         </caption>
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -62,6 +77,7 @@
                         </thead>
                         <tbody>
                             <?php
+                            $tempUrl = getHostURL();
                             if (empty($appointments)) {
                                 danger("No appointment history found...");
                             } else {
@@ -74,30 +90,26 @@
                                     echo "<td class='px-6 py-4'>{$appointment['appointmentDate']}</td>";
                                     echo "<td class='px-6 py-4'>{$appointment['appointmentTime']}</td>";
                                     
-                                    // Check if the appointment's status is 0 (active) to show the cancel button
+                                    // Display appropriate cancel button or text based on appointment status
                                     if ($appointment['appointmentStatus'] == -1) {
-                                        
-                                        echo "<td class='px-6 py-4 text-red-500'>Cancel by Patient</td>";
+                                        echo "<td class='px-6 py-4 text-red-500'>Cancelled by Patient</td>";
                                     } else if ($appointment['appointmentStatus'] == 1) {
-                                        echo "<td class='px-6 py-4 text-red-500'>Cancel by Doctor</td>";
-                                    }
-                                    else {
+                                        echo "<td class='px-6 py-4 text-red-500'>Cancelled by Doctor</td>";
+                                    } else {
                                         echo "<td class='px-6 py-4'>
-                                                <a href='#'>
-                                                    <button type='button' class='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
-                                                        Cancel
-                                                    </button>
+                                                <a href='" . htmlspecialchars($tempUrl) . "/helpers/cancelAppointmentProcess.php?appointmentId=" . htmlspecialchars($appointment['appointmentId']) . "'>
+                                                <button type='button' name='cancelBtn' id='cancelBtn' class='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
+                                                    Cancel
+                                                </button>
                                                 </a>
                                             </td>";
                                     }
-                            
+                                
                                     echo "</tr>";
                                     $i++;
                                 }
                             }
                             ?>
-                            
-                            
                         </tbody>
                     </table>
                 </div>
@@ -106,5 +118,6 @@
 
         </section>
     </main>
+
 </body>
 </html>
