@@ -34,6 +34,9 @@
         }
     </style>
 </head>
+<?php
+include('../hooks/useParams.php');
+?>
 
 <body>
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -46,7 +49,12 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form id="login-form" class="space-y-6">
+            <form
+                id="login-form"
+                class="space-y-6"
+                action=<?php
+                        echo getBaseURL() . "/helpers/loginProcess.php"
+                        ?> method="post">
                 <div>
                     <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                     <div class="mt-2">
@@ -59,7 +67,7 @@
                     <div class="flex items-center justify-between">
                         <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
                         <div class="text-sm">
-                            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                            <a href=<?php echo getBaseURL() . "/pages/forgetPassword/forgetPassword.php"; ?> class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
                         </div>
                     </div>
                     <div class="mt-2">
@@ -88,7 +96,7 @@
                             <i class="fa-solid fa-rotate fa-spin fa-xl" style="color: #0d1972;"></i>
                         </button>
                         <button type="button" id="play-audio" class="ml-4 text-indigo-600 hover:text-indigo-500">
-                        <i class="fa-regular fa-circle-play fa-beat fa-xl" style="color: #24447a;"></i>
+                            <i class="fa-regular fa-circle-play fa-beat fa-xl" style="color: #24447a;"></i>
                         </button>
                     </div>
                 </div>
@@ -100,15 +108,19 @@
                 </div>
 
                 <div>
-                    <button type="submit"
-                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
-                        in</button>
+                    <button
+                        type="submit"
+                        name="submit"
+                        value="submit"
+                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        Sign in
+                    </button>
                 </div>
             </form>
 
             <p class="mt-10 text-center text-sm text-gray-500">
                 Doesn't have an account?
-                <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 underline">Sign Up</a>
+                <a href=<?php echo getBaseURL() . "/pages/register.php"; ?> class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 underline">Sign Up</a>
             </p>
         </div>
     </div>
@@ -129,24 +141,24 @@
         });
 
         // Play CAPTCHA as audio
-    document.getElementById('play-audio').addEventListener('click', function() {
-        const synth = window.speechSynthesis;
-        const digits = currentCaptcha.toString().split(''); 
-        const utterance = new SpeechSynthesisUtterance(digits.join(' ')); 
-        utterance.rate = 0.9; 
-        // Try to select a female voice
-        const voices = synth.getVoices();
-        const femaleVoice = voices.find(voice => voice.name.toLowerCase().includes('female') || voice.gender === 'female' || voice.name.toLowerCase().includes('woman'));
-        utterance.voice = femaleVoice || voices[0]; 
+        document.getElementById('play-audio').addEventListener('click', function() {
+            const synth = window.speechSynthesis;
+            const digits = currentCaptcha.toString().split('');
+            const utterance = new SpeechSynthesisUtterance(digits.join(' '));
+            utterance.rate = 0.9;
+            // Try to select a female voice
+            const voices = synth.getVoices();
+            const femaleVoice = voices.find(voice => voice.name.toLowerCase().includes('female') || voice.gender === 'female' || voice.name.toLowerCase().includes('woman'));
+            utterance.voice = femaleVoice || voices[0];
 
-        synth.speak(utterance);
-    });
+            synth.speak(utterance);
+        });
 
-     // Ensure voices are loaded before attempting to use them
-     window.speechSynthesis.onvoiceschanged = function() {
-        // Refresh available voices when they are loaded
-        const voices = window.speechSynthesis.getVoices();
-    };
+        // Ensure voices are loaded before attempting to use them
+        window.speechSynthesis.onvoiceschanged = function() {
+            // Refresh available voices when they are loaded
+            const voices = window.speechSynthesis.getVoices();
+        };
 
 
         // Validate the CAPTCHA on form submission

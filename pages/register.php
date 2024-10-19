@@ -9,27 +9,30 @@
     <title>Sign Up</title>
 </head>
 <?php
-    include('../hooks/useParams.php');
+include('../hooks/useParams.php');
+include('../hooks/useSecurityQuestions.php');
 
-     if(isset($_GET['error'])){
-        include('../components/dangeralert.php');
-        if($_GET['error'] == 'usernamefail'){
-          ?>
-            
-          <?php
-          danger('username not available');
-        }else if($_GET['error'] == 'emailfail'){
-            ?>
-            
-            <?php
-            danger('email not available');
-        }else if($_GET['error'] == 'wrong'){
-            ?>
-            
-            <?php
-            danger('something went wrong');
-        }
-     }
+$securityQuestions = getSecurityQuestions();
+
+if (isset($_GET['error'])) {
+    include('../components/dangeralert.php');
+    if ($_GET['error'] == 'usernamefail') {
+?>
+
+    <?php
+        danger('username not available');
+    } else if ($_GET['error'] == 'emailfail') {
+    ?>
+
+    <?php
+        danger('email not available');
+    } else if ($_GET['error'] == 'wrong') {
+    ?>
+
+<?php
+        danger('something went wrong');
+    }
+}
 
 
 
@@ -44,9 +47,9 @@
         <div class="py-2 text-sm text-blue-600">
             Sign up here
         </div>
-        <form action=<?php 
-           echo getBaseURL()."/helpers/registerProcess.php"
-         ?> method="post">
+        <form action=<?php
+                        echo getBaseURL() . "/helpers/registerProcess.php"
+                        ?> method="post">
             <div class="grid gap-6 mb-6 md:grid-cols-2">
 
                 <!-- First Name -->
@@ -146,8 +149,24 @@
                 <i class="fas fa-eye absolute right-3 top-10 cursor-pointer" id="togglePassword"></i>
             </div>
 
-           
+            <!-- Security questions dropdown -->
+            <div class="mb-6 relative">
+                <label for="securityQuestions" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                <select id="securityQuestions" name="securityQuestion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    <option selected disabled>Choose a Security Question</option>
+                    <?php
+                    foreach ($securityQuestions as $question) {
+                        echo "<option value='{$question['questionId']}'>{$question['questionText']}</option>";
+                    }
+                    ?>
+                </select>
+            </div>
 
+            <!-- Answer input field -->
+            <div id="answerField" class="mb-6 relative">
+                <label for="securityAnswer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Answer</label>
+                <input type="text" id="securityAnswer" name="securityAnswer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your answer" required>
+            </div>
 
 
 
@@ -167,7 +186,7 @@
                 </div>
 
                 <div>
-                    <a href=<?php echo getBaseURL()."/pages/login.php"; ?>>Have an Account?</a>
+                    <a href=<?php echo getBaseURL() . "/pages/login.php"; ?>>Have an Account?</a>
                 </div>
 
             </div>
@@ -178,31 +197,15 @@
         </form>
     </section>
     <script>
-
-
         const togglePassword = document.querySelector("#togglePassword");
         const password = document.querySelector("#password");
 
-        const toggleConfirmPassword = document.querySelector("#toggleConfirmPassword");
-        const confirmPassword = document.querySelector("#confirm_password");
-
         // Toggle for the first password field
-        togglePassword.addEventListener("click", function () {
+        togglePassword.addEventListener("click", function() {
             const type = password.getAttribute("type") === "password" ? "text" : "password";
             password.setAttribute("type", type);
             this.classList.toggle("fa-eye-slash");
         });
-
-        // Toggle for the confirm password field
-        toggleConfirmPassword.addEventListener("click", function () {
-            const type = confirmPassword.getAttribute("type") === "password" ? "text" : "password";
-            confirmPassword.setAttribute("type", type);
-            this.classList.toggle("fa-eye-slash");
-        });
-
-
-
-
 
     </script>
 </body>
