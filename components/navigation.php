@@ -37,7 +37,7 @@
             e.preventDefault(); 
             const confirmed = confirm('Are you sure you want to logout?');
             if (confirmed) {
-                window.location.href = '/clinicManagementSystem/pages/logout.php'; 
+                window.location.href = '/Clinic-Management-System/pages/logout.php'; 
             }
         });
     </script>
